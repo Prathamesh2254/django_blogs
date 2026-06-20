@@ -1,0 +1,38 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="section-title">
+        Category: {{ category.category_name }}
+    </h2>
+
+    <div class="posts">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="card">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+
+                <div class="card-content">
+                    <h3>{{ post.title }}</h3>
+
+                    <p>{{ post.short_description }}</p>
+
+                    <a href="#" class="read-more"></a>
+                        Read More →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align:center; width:100%;">
+                No posts available in this category.
+            </p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
