@@ -20,9 +20,13 @@ from django.conf import settings
 from . import views
 from django.contrib import admin
 from django.urls import include, path
+from blogs import views as blog_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('category/', include('blogs.urls')),
+    path('category/', include('blogs.urls')), 
+    path('search/', blog_views.search, name='search'), # This is the search URL pattern
+    path('<slug:slug>/', blog_views.blog_detail, name='blog_detail'), # This should be at the end to avoid conflicts with other URL patterns
+   
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

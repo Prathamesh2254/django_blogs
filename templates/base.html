@@ -1,3 +1,4 @@
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -5,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}My Blog{% endblock %}</title>
 
     <style>
@@ -20,13 +22,17 @@
             color: #333;
         }
 
+        /* Header */
+
         header {
             background: #222;
-            color: white;
+            color: #fff;
             padding: 20px 10%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo {
@@ -34,11 +40,49 @@
             font-weight: bold;
         }
 
+        /* Search */
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box input {
+            width: 250px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .search-box button {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            background: #00bcd4;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #0097a7;
+        }
+
+        /* Navigation */
+
+        header nav {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
         header nav a {
-            color: white;
+            color: #fff;
             text-decoration: none;
             margin-left: 20px;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         header nav a:hover {
@@ -46,11 +90,11 @@
         }
 
         /* Category Navigation */
+
         .nav-scroller {
-            background: white;
+            background: #fff;
             border-bottom: 1px solid #ddd;
             padding: 12px 10%;
-            overflow-x: auto;
         }
 
         .category-menu {
@@ -65,21 +109,36 @@
             color: #555;
             padding: 8px 14px;
             border-radius: 20px;
-            transition: 0.3s;
+            transition: .3s;
             font-size: 14px;
             font-weight: 500;
         }
 
         .category-menu a:hover {
             background: #00bcd4;
-            color: white;
+            color: #fff;
+        }
+
+        /* Main Layout */
+
+        .main-wrapper {
+            width: 90%;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        .content-area {
+            width: 100%;
         }
 
         .hero {
             text-align: center;
             padding: 100px 10%;
             background: linear-gradient(135deg, #00bcd4, #3f51b5);
-            color: white;
+            color: #fff;
+            border-radius: 10px;
         }
 
         .hero h1 {
@@ -94,7 +153,7 @@
 
         .btn {
             display: inline-block;
-            background: white;
+            background: #fff;
             color: #3f51b5;
             padding: 12px 25px;
             border-radius: 5px;
@@ -103,8 +162,8 @@
         }
 
         .container {
-            width: 80%;
-            margin: 50px auto;
+            width: 100%;
+            margin: 40px auto;
         }
 
         .section-title {
@@ -119,11 +178,11 @@
         }
 
         .card {
-            background: white;
+            background: #fff;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+            transition: .3s;
         }
 
         .card:hover {
@@ -155,23 +214,58 @@
             font-weight: bold;
         }
 
+        /* Sidebar */
+
+        .blog-sidebar {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+            height: fit-content;
+        }
+
+        .blog-sidebar h4 {
+            margin-bottom: 10px;
+        }
+
+        .blog-sidebar ol {
+            list-style: none;
+        }
+
+        .blog-sidebar li {
+            margin: 10px 0;
+        }
+
+        .blog-sidebar a {
+            text-decoration: none;
+            color: #00bcd4;
+        }
+
         footer {
             background: #222;
-            color: white;
+            color: #fff;
             text-align: center;
             padding: 20px;
             margin-top: 50px;
         }
 
-        @media (max-width: 768px) {
+        /* Responsive */
+
+        @media(max-width:992px) {
+
+            .main-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
             header {
                 flex-direction: column;
-                gap: 15px;
             }
 
             header nav {
-                display: flex;
-                flex-wrap: wrap;
                 justify-content: center;
             }
 
@@ -179,45 +273,138 @@
                 margin: 5px 10px;
             }
 
-            .container {
-                width: 95%;
+            .search-box {
+                width: 100%;
+                justify-content: center;
             }
+
+            .search-box input {
+                width: 70%;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
         }
     </style>
+
 </head>
 
 <body>
 
     <header>
+
         <div class="logo">MyBlog</div>
 
+        <!-- Search Bar -->
+
+        <form class="search-box" method="GET" action="{% url 'search' %}">
+
+            <input type="text" name="keyword" placeholder="{{ keyword|default:'Search...' }}">
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
         <nav>
+
             <a href="/">Home</a>
+
             <a href="#">Blogs</a>
+
             <a href="#">Categories</a>
+
             <a href="#">About</a>
+
             <a href="#">Contact</a>
+
         </nav>
+
     </header>
 
-    <!-- Categories Navigation -->
+    <!-- Categories -->
+
     <div class="nav-scroller">
+
         <nav class="category-menu">
+
             {% for cat in categories %}
-                <a href="{% url 'posts_by_category' cat.id %}">
-                    {{ cat.category_name }}
-                </a>
+
+            <a href="{% url 'posts_by_category' cat.id %}">
+
+                {{ cat.category_name }}
+
+            </a>
+
             {% endfor %}
+
         </nav>
+
     </div>
 
-    {% block content %}
+    <!-- Main Content -->
 
-    
-    {% endblock %}
+    <div class="main-wrapper">
+
+        <div class="content-area">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+        <!-- Sidebar -->
+
+        <aside class="blog-sidebar">
+
+            <div>
+
+                <h4>{{ about_us.About_us }}</h4>
+
+                <p>{{ about_us.description }}</p>
+
+            </div>
+
+            {% if social %}
+
+            <div style="margin-top:25px;">
+
+                <h4>Follow Us</h4>
+
+                <ol>
+
+                    {% for i in social %}
+
+                    <li>
+
+                        <a href="{{ i.social_link }}" target="_blank">
+
+                            {{ i.social_name }}
+
+                        </a>
+
+                    </li>
+
+                    {% endfor %}
+
+                </ol>
+
+            </div>
+
+            {% endif %}
+
+        </aside>
+
+    </div>
 
     <footer>
+
         <p>&copy; 2026 MyBlog. All Rights Reserved.</p>
+
     </footer>
 
 </body>

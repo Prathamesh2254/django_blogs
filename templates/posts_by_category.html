@@ -20,7 +20,7 @@
 
                     <p>{{ post.short_description }}</p>
 
-                    <a href="#" class="read-more"></a>
+                    <a href="{% url 'blog_detail' post.slug %}" class="read-more">
                         Read More →
                     </a>
                 </div>

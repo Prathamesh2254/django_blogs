@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blogs'
+    'blogs',
+    'assign',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'blogs.context_processors.get_categories',  # Add this line to include the custom context processor
+                'blogs.context_processors.get_about_us',  # Add this line to include the custom context processor
+                'blogs.context_processors.get_social',  # Add this line to include the custom context processor
             ],
         },
     },
