@@ -27,6 +27,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('category/', include('blogs.urls')), 
     path('search/', blog_views.search, name='search'), # This is the search URL pattern
+    path('register/', views.register, name='register'),
     path('<slug:slug>/', blog_views.blog_detail, name='blog_detail'), # This should be at the end to avoid conflicts with other URL patterns
-   
+    
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

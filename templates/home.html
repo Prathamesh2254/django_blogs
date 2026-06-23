@@ -7,7 +7,7 @@
     <h2 class="section-title">Featured Posts</h2>
     <div class="posts"> {% for post in featured_blogs %}
         <div class="card">
-            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+            <img src="#" alt="{{ post.title }}">
             <div class="card-content">
                 <h3><a href="{% url 'blog_detail' post.slug %}" class="text-dark"> {{ post.title }}</a></h3>
                 <p>{{ post.short_description }}</p>
